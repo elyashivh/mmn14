@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 /*שגיאות אפשריות:
  * פעולה שאינה קיימת
@@ -26,8 +26,11 @@ void get_line_info(char file_name)
     char curr_line[MAX_LINE_LEN];
     char *temp_word;
     char s[2] = " ";
-    table label_table[1]; /*להוסיף מס' תוויות*/
-   
+    table *label_table = malloc(1 * sizeof (table));
+    if(!label_table)
+    {
+        /*להעלות שגיאה*/
+    }
 
      /*open file after pre-assmembler process*/
     if (file = fopen(file, "r") == NULL)
@@ -46,7 +49,7 @@ void get_line_info(char file_name)
         line_type = check_line_type(curr_line, temp_word);
         if (line_type == 0 || line_type == 1)
             continue;
-        else if (line_type = 2)
+        else if (line_type == 2)
         {
             decod_directive(curr_line);
         }
@@ -62,10 +65,10 @@ void get_line_info(char file_name)
 }/*end of get_file_info*/
 
 
-int check_line_type(char *line, char *word, label_table)
+int check_line_type(char *curr_line, char *temp_word, *label_table, int *lable_counter)
 {
     /*check the line type -  if empty or comment continue to the next line*/
-        if (is_empty(curr_line) || is_comment(curr_line))
+        if (comment_or_empty(curr_line))
         {
             continue;    
         }
@@ -74,8 +77,8 @@ int check_line_type(char *line, char *word, label_table)
         {
             if (new_label(temp_word, label_table.label, /*מס שיצייין את המיקום בטבלת התוויות*/))
             {
-                /*לעדכן מס תוויות*/
-                enter_new_lable(temp_word, ic+dc, label_table.label, /*מס שיצייין את המיקום בטבלת התוויות*/)
+                lable_counter++;
+                enter_new_lable(temp_word, ic+dc, label_table, /*מס שיצייין את המיקום בטבלת התוויות*/)
             }
             else
             {
@@ -98,16 +101,11 @@ void errors_list(int error_num)
 }
 
 
-boolean is_comment(char* line)
+boolean comment_or_empty(char* line)
 {
-    if (line[0] == ';')
+    if (line[0] == ';' || strcmp(line, "  \n") == 0)
         return TRUE;
     return FALSE;
-}
-
-boolean is_empty (char* line)
-{
-    
 }
 
 boolean is_label(char* word)
@@ -118,13 +116,19 @@ boolean is_label(char* word)
     return FALSE;
 }
 
-boolean new_lebal(char* label, table *lable_table, int lebal_num)
+boolean new_lebal(char* label, table *lable_table, int *label_num)
 {
 
 }
 
 void enter_new_lable(char* lable_name, int adress, table *lable_table, int label_num)
 {
+    table *new_table = realloc(lable_table, label_num * sizeof(table));
+    if (!new_table)
+    {
+        /*להעלות שגיאה*/
+    }
+    lable_table = new_table;
     lable_table[label_num]->name = lable_name;
     lable_table[label_num]->adress = adress;
 }
