@@ -28,7 +28,7 @@ static boolean make_process(char* argv[i])
      int dc = 0;
      int l = 0;
      int line_counter = 0;
-     booleen error = FALSE;
+     boolean error = FALSE;
      char temp_line[MAX_LINE_LEN];
      
 

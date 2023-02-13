@@ -21,12 +21,12 @@ enum registers {r0, r1, r2, r3, r4, r5, r6, r7};
 
 enum adressing_methods {immediate, direct, jump, direct_register};
 
-typdef enum {
+typedef enum {
     data = 1,
     string, 
     entry, 
     extern
-    } direcive_type;
+    }direcive_type;
 
 
 typedef struct {
@@ -37,7 +37,7 @@ typedef struct {
 /*סוגי משפטים*/
 typedef enum {
     empty,
-    comnent,
+    comment,
     directive,
     command
     } sentence_type;

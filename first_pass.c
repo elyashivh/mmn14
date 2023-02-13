@@ -1,7 +1,7 @@
 #include "globals.h"
 
 #include <stdio.h>
-
+#include <stdlib.h>
 
 
 /*שגיאות אפשריות:
@@ -15,24 +15,26 @@
 
 void get_line_info(char file_name)
 {
+    FILE *file;
     int ic = IC_ADDRESS;   /**/
-     int dc = 0;
-     int l = 0;
-     int line_counter = 0;
-     boolean error = FALSE;
-     char curr_line[MAX_LINE_LEN];
-     char *temp_word;
-     char s[2] = " ";
-     int num_of_labels = 0; /* Number of labels */
-     table label_table[num_of labels]; /*להוסיף מס' תוויות*/
-    
+    int dc = 0;
+    int l = 0;
+    int line_counter = 0;
+    int label_counter = 0;
+    int line_type;
+    boolean error = FALSE;
+    char curr_line[MAX_LINE_LEN];
+    char *temp_word;
+    char s[2] = " ";
+    table label_table[1]; /*להוסיף מס' תוויות*/
+   
 
      /*open file after pre-assmembler process*/
     if (file = fopen(file, "r") == NULL)
     {
         errors_list(0);
     }
-
+    
     /*read the first line from the file and start the first pass*/
     do
     {
@@ -40,8 +42,29 @@ void get_line_info(char file_name)
         curr_line[strlen(curr_line)-2]= '\0';
         line_counter++;
         temp_word = strtok(curr_line, s);
+        
+        line_type = check_line_type(curr_line, temp_word);
+        if (line_type == 0 || line_type == 1)
+            continue;
+        else if (line_type = 2)
+        {
+            decod_directive(curr_line);
+        }
+        else
+        {
+            decod_command(curr_line);
+        }
+        
 
-        /*check the line type -  if empty or comment continue to the next line*/
+
+    } while (fgets(curr_line, MAX_LINE_LEN, file) != NULL);
+    
+}/*end of get_file_info*/
+
+
+int check_line_type(char *line, char *word, label_table)
+{
+    /*check the line type -  if empty or comment continue to the next line*/
         if (is_empty(curr_line) || is_comment(curr_line))
         {
             continue;    
@@ -59,22 +82,7 @@ void get_line_info(char file_name)
                 /*להעלות שגיאה על תווית כפולה*/
             }
         }
-        else if(is_directive(temp_word))
-        {
-            decod_directive(curr_line);
-        }
-        /*לחשוב אם באמת צריך את הבדיקה הזאת- כי זאת האופציה האחרונה והיא עיקר העבודה */
-        else if (is_command(temp_word))
-        {
-            decod_command(curr_line);
-        }
-        
-
-
-    } while (fgets(curr_line, MAX_LINE_LEN, file) != NULL);
-    
-}/*end of get_file_info*/
-
+}
 
 void errors_list(int error_num)
 {
