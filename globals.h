@@ -25,7 +25,7 @@ typdef enum {
     data = 1,
     string, 
     entry, 
-    extern
+    external
     } direcive_type;
 
 
