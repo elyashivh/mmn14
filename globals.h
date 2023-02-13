@@ -51,6 +51,15 @@ typedef struct {
     boolean currect;
 } line_info;
 
+<<<<<<< HEAD
 
 
+=======
+typedef struct {
+    char* name;
+    int start; //The number of the character from which the label content begins
+    int end; //Same as above
+    boolean external; //Sign if the label is from an external file
+}Label;
+>>>>>>> b64f47c (13.2)
 
