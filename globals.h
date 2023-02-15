@@ -21,12 +21,11 @@ enum registers {r0, r1, r2, r3, r4, r5, r6, r7};
 
 enum adressing_methods {immediate, direct, jump, direct_register};
 
-typedef enum {
-    data = 1,
+enum direcive_type {
+    data,
     string, 
     entry, 
-    extern
-    } direcive_type;
+    externy };
 
 
 typedef struct {
@@ -46,7 +45,7 @@ typedef enum {
 typedef struct {
     int line_adress;
     sentence_type sentence;
-    int directive_type;
+    directive_type curr_dire_type;
     int opcode;
     boolean currect;
 } line_info;
