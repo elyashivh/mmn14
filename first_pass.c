@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
 
 /*שגיאות אפשריות:
  * פעולה שאינה קיימת
@@ -158,19 +160,51 @@ boolean decode_directive(char* line, int dc)
 {
     boolean result;
     char directicve_type;
-    char *temp_word;
+    char *temp_word = line;
     temp_word +=2;
-    while (temp_word)
+    /*instruct type is data*/
+    if (strcmp(temp_word, "d") == 0)
     {
-        /*instruct type is data*/
-        if (strcmp(temp_word, "d") == 0)
+        char comma[1] = ",";
+        boolean is_comma = TRUE;
+        temp_word += 3;
+        while (temp_word)
         {
-            temp_word += 3;
+            if (isspace(*temp_word))
+                temp_word++;
+            else if (strcmp(temp_word, comma) == 0 && is_comma)
+            {
+                /*להעלות שגיאה על פסיק כפול*/
+            }
+            else if (strcmp(temp_word, comma) == 0)
+            {
+                is_comma = TRUE;
+                temp_word++;
+            }
+            else if(isdigit(*temp_word))
+            {
+                /*לקודד את המספר לבינארי ולהכניס אותו לטבלת קידוד */
+                dc++;
+                is_comma = FALSE;
+            }
 
         }
     }
-
-
+    else if (strcmp(temp_word, "s") == 0)
+    {
+        int len;
+        temp_word += 7;
+        len = (int)strlen(temp_word + 1);
+        char str[len];
+        int i;
+        for (i = 0; i < len - 1; i++)
+        {
+            str[i] = *temp_word;
+            dc++;
+            temp_word++;
+        }
+        str[i+1] = '\0';
+    }
 
 }
 
