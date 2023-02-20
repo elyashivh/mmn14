@@ -2,6 +2,7 @@
 15.1.2023
  * */
 #define MAX_LINES 100
+#define MAX_LABEL_SIZE 10
 #include <stdio.h>
 #include <strings.h>
 #include <stdlib.h>
@@ -52,7 +53,7 @@ void readWord(Vars*);
 int typeIncSet(Vars*); //מחזיר מספר מ1-3 שמייצג לאיזו קבוצת הוראות שייכת ההוראה הנוכחית
 
 
-void scanLine(FILE*, char*,int* IC);
+void scanLine(FILE*, char*);
 void varsTodefaulte(Vars*);
 void mcrLabelsSpread(Vars*);
 void resetStr(char*);
@@ -64,3 +65,4 @@ Mcr* idetifyMcr(Mcr* root, char* str);
 void fprintRange(FILE* destination, FILE* source, int from, int until);
 void printMcr(Mcr* mcr, Vars* vars);
 void checkMcr(char* str, int* mcrFlag);
+void stringOfIndex(FILE* source, int index, char* destination);
