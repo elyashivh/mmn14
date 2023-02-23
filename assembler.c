@@ -1,15 +1,20 @@
-#include "globals.h"
+
+#include "firs_pass.h"
+
+
 #include <stdio.h>
 
 static boolean make_process(char* argv[]);
 
 int main(int argc, char* argv[]) {
-    int i;
+     /*int i;
 
     for (i = 0; i < argc; i++)
     {
         make_process(argv[i]);
-    }
+    }*/
+     char* file_name = argv[1];
+     get_line_info(file_name);
 
 }
 

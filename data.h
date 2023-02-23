@@ -22,7 +22,7 @@ typedef struct {
 typedef struct { //לפצל!
     char line[81];
     char operation[5]; //The longest operation is 'stop' whose length is 4
-    char operand1[12]; //points to the operand (label/register/immediate number)
+    char operand1[12]; //points to the operand (Label/register/immediate number)
     char operand2[12];
     char parameter1[12];
     char parameter2[12];
