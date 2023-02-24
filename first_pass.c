@@ -70,7 +70,7 @@ void get_line_info(char *file_name)
 
 int check_line_type(char *curr_line, char *temp_word, Label *label_table, int *lable_counter, int ic, int dc)
 {
-    int result;
+    int result = 0;
     /*check the line type -  if empty or comment continue to the next line*/
     if (comment_or_empty(curr_line))
     {
@@ -161,7 +161,7 @@ boolean is_directive(char *word)
 }
 
 
-boolean decode_directive(char* line, int dc)
+boolean decode_directive(char* line, int dc, Label *lable_table, /*מצביע לטבלת קידוד*/)
 {
     boolean result;
     char directicve_type;
@@ -213,13 +213,10 @@ boolean decode_directive(char* line, int dc)
 
 }
 
-boolean decode_command(char* word)
+boolean decode_command(char* word, int ic, Label *lable_table, /*מצביע לטבלת קידוד*/)
 {
 
 }
 
-boolean decode_line(char* line)
-{
 
-}
 
